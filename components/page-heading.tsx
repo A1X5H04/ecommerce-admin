@@ -28,10 +28,10 @@ function PageHeading({
       )}
       <div className="w-full flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold tracking-tighter mb-0.5">
+          <h2 className="text-2xl font-bold tracking-tighter mb-0.5">
             {heading}
           </h2>
-          <p className="text-muted-foreground text-sm">{subheading}</p>
+          <p className="text-muted-foreground">{subheading}</p>
         </div>
         <div>{children}</div>
       </div>

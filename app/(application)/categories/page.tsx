@@ -8,7 +8,7 @@ import Link from "next/link";
 
 function Page() {
   return (
-    <div className="w-full max-w-6xl mx-auto px-5 sm:px-10">
+    <div className="w-full">
       <PageHeading
         heading="Categories"
         subheading="Manage your categories here"

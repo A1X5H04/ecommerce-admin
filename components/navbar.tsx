@@ -12,7 +12,7 @@ function Navbar() {
   const isMobile = useIsMobile();
 
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-14 ">
+    <header className="flex h-20 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-14 ">
       <div className="w-full flex items-center justify-between gap-2 px-4">
         <div className="flex items-center gap-2">
           {isMobile && (
