@@ -32,7 +32,6 @@ function Page() {
       name: "",
       description: "",
       parentCategoryId: "",
-      type: "",
     },
   });
 
@@ -40,8 +39,6 @@ function Page() {
     // Handle Form Submission
     alert(JSON.stringify(value));
   };
-
-  const category_type = form.watch("type");
 
   return (
     <div>
@@ -72,7 +69,7 @@ function Page() {
                 <FormItem>
                   <FormLabel>Parent Category</FormLabel>
                   <FormControl>
-                    <Input placeholder="Hello" {...field} />
+                    <Input type="checkbox" placeholder="Hello" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
