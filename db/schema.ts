@@ -12,15 +12,52 @@ import {
   pgEnum,
   jsonb,
 } from "drizzle-orm/pg-core";
+import { InferInsertModel } from "drizzle-orm";
 
 // Categories
 
-export const categories = pgTable("category", {
-  id: uuid("id").primaryKey().notNull(),
+const UserRole = pgEnum("user_role", ["admin", "support", "marketing"]);
+
+export const userTable = pgTable("user", {
+  id: uuid().primaryKey().notNull().defaultRandom(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull().unique("user_email"),
+  password: varchar("password", { length: 255 }).notNull(),
+
+  emailVerifiedAt: timestamp("email_verified_at"),
+
+  role: UserRole().notNull().default("admin"),
+  status: boolean().notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const sessionTable = pgTable("session", {
+  id: text("id").primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  expiresAt: timestamp("expires_at", {
+    withTimezone: true,
+    mode: "date",
+  }).notNull(),
+});
+
+export const categoryTable = pgTable("category", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
   parentId: uuid("parent_id"),
   name: varchar("name", { length: 255 }).notNull(),
-  categoryType: varchar("category_type", { length: 255 }).notNull(), // "main", "type", "usage", "seasonal" etc.
-  attributes: jsonb("attributes").notNull(),
+
+  iconUrl: varchar("icon_url", { length: 512 }),
+
+  slug: varchar("slug", { length: 255 }).notNull().unique("category_slug"),
+
+  metadata: jsonb("metadata").notNull(), // For SEO, etc
+
+  status: boolean()
+    .notNull()
+    .$default(() => true),
+
   createdAt: timestamp("created_at")
     .notNull()
     .$defaultFn(() => new Date()),
@@ -247,3 +284,5 @@ export const categories = pgTable("category", {
 //     .notNull()
 //     .$defaultFn(() => new Date()),
 // });
+
+export type Session = InferInsertModel<typeof sessionTable>;
