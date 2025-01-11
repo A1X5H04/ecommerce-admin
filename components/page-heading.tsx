@@ -6,7 +6,7 @@ interface PageHeadingProps {
   backUrl?: string;
   heading: string;
   subheading: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 function PageHeading({
@@ -33,7 +33,7 @@ function PageHeading({
           </h2>
           <p className="text-muted-foreground">{subheading}</p>
         </div>
-        <div>{children}</div>
+        {children && <div>{children}</div>}
       </div>
     </div>
   );
